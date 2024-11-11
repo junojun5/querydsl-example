@@ -27,6 +27,7 @@ public class QuerydslBasicTest {
 
 	@BeforeEach
 	public void before() {
+		queryFactory = new JPAQueryFactory(em);
 		Team teamA = new Team("teamA");
 		Team teamB = new Team("teamB");
 		em.persist(teamA);
@@ -72,7 +73,11 @@ public class QuerydslBasicTest {
 			.selectFrom(member)
 			.where(
 				member.username.eq("member1")
-					.and(member.age.eq(10))
+					.and(member.age.between(10, 30))
+				/*
+					member.username.eq("member1"),
+					member.age.between(10, 30)
+				* */
 			)
 			.fetchOne();
 
